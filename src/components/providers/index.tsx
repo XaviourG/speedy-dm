@@ -1,9 +1,16 @@
-'use client'
-import { ThemeProvider } from 'next-themes'
+'use client';
+import { ThemeProvider } from 'next-themes';
 import { ReactNode } from 'react';
+import CharacterLibraryContextProvider from './character-library';
 
-const RootProviderCollection = ({ children }: { children: ReactNode }) => (
-  <ThemeProvider>{children}</ThemeProvider>
+export interface ContextProviderProps {
+  children: ReactNode;
+}
+
+const RootProviderCollection = ({ children }: ContextProviderProps) => (
+  <ThemeProvider>
+    <CharacterLibraryContextProvider>{children}</CharacterLibraryContextProvider>
+  </ThemeProvider>
 );
 
 export default RootProviderCollection;
