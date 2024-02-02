@@ -1,4 +1,4 @@
-import { CharacterLibraryContext } from '@/components/providers/character-library/context';
+import { CharacterLibraryContext } from '@/utilities/providers/character-library/context';
 import { useContext } from 'react';
 
 const useCharacterLibrary = () => {

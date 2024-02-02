@@ -1,8 +1,17 @@
+import { D4 } from '../dice';
 import { QuickAttack } from '../quick-actions';
-import { CharacterStatArray } from '../stats';
+import { CharacterStat, CharacterStatArray } from '../stats';
 import { StatusAilements } from '../status-ailments';
 
-export interface Character {
+export enum CharacterType {
+  Player = 'player',
+  Npc = 'npc'
+}
+
+export type Character = {
+  type: CharacterType;
+  name: string;
+  notes: string;
   state: {
     health: number;
     maxHealth: number;
@@ -13,14 +22,68 @@ export interface Character {
   };
   stats: CharacterStatArray;
   statusAilments: StatusAilements[];
-}
+};
 
-export interface Npc extends Character {
+export type Npc = Character & {
+  type: CharacterType.Npc;
   quickAttacks: QuickAttack[];
+};
+
+export interface Player extends Character {
+  type: CharacterType.Player;
 }
 
-export interface Horde extends Character {
-  quickAttacks: QuickAttack[];
-}
+export const PLAYER_TEMPLATE: Player = {
+  type: CharacterType.Player,
+  name: 'player template',
+  notes: '',
+  state: {
+    health: 10,
+    maxHealth: 10,
+    armourClass: 12,
+    actions: 1,
+    bonusActions: 1,
+    movement: 30
+  },
+  stats: {
+    [CharacterStat.Strength]: 10,
+    [CharacterStat.Charisma]: 10,
+    [CharacterStat.Dexterity]: 10,
+    [CharacterStat.Wisdom]: 10,
+    [CharacterStat.Intelligence]: 10,
+    [CharacterStat.Constitution]: 10
+  },
+  statusAilments: []
+};
 
-export interface Player extends Character {}
+export const NPC_TEMPLATE: Npc = {
+  type: CharacterType.Npc,
+  name: 'mob template',
+  notes: '',
+  state: {
+    health: 10,
+    maxHealth: 10,
+    armourClass: 12,
+    actions: 1,
+    bonusActions: 1,
+    movement: 30
+  },
+  stats: {
+    [CharacterStat.Strength]: 10,
+    [CharacterStat.Charisma]: 10,
+    [CharacterStat.Dexterity]: 10,
+    [CharacterStat.Wisdom]: 10,
+    [CharacterStat.Intelligence]: 10,
+    [CharacterStat.Constitution]: 10
+  },
+  statusAilments: [],
+  quickAttacks: [
+    {
+      name: 'Unarmed Strike',
+      attackDice: [D4],
+      attackBonus: 0,
+      statTypes: [CharacterStat.Strength, CharacterStat.Dexterity],
+      info: 'A basic melee attack'
+    }
+  ]
+};

@@ -1,9 +1,10 @@
-import { DiceRoll } from "../dice"
-import { CharacterStat } from "../stats"
+import { DiceRoll } from '../dice';
+import { CharacterStat } from '../stats';
 
 export type QuickAttack = {
-  attackDice: DiceRoll[],
-  attackBonus: number,
-  statType: CharacterStat,
-  info?: string
-}
+  name: string;
+  attackDice: DiceRoll[];
+  attackBonus: number;
+  statTypes: CharacterStat[];
+  info?: string;
+};
